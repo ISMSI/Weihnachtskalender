@@ -1,6 +1,7 @@
 package com.example.weihnachtskalender;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.io.BufferedInputStream;
@@ -33,7 +34,7 @@ public class StateMachine {
 
         if (result.equals("none"))
         {
-            riddleNo=0;
+            riddleNo = 0;
         }
         else
         {
@@ -47,26 +48,51 @@ public class StateMachine {
                e.printStackTrace();
            }
         }
-        checkOpenRiddle(riddleNo);
-        loadRiddle(riddleNo);
+        if ( !riddleOpen(riddleNo) )
+        {
+            loadRiddle(riddleNo);
+        }
     }
 
-    private void checkOpenRiddle( int riddleNo)
+    private boolean riddleOpen( int riddleNo)
     {
         //TODO Check if a riddle is open and if it is the same as the questioned
-    }
+        String riddleCurrentStr;
+        int riddleCurrentInt;
 
-    private void saveCurrentState()
-    {
-
+        riddleCurrentStr = loadedRiddle.getProperty("number");
+        try
+        {
+            riddleCurrentInt = Integer.getInteger(riddleCurrentStr);
+            if (riddleNo == riddleCurrentInt)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (NumberFormatException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void loadRiddle( int number)
     {
+        int riddle;
+        switch (number)
+        {
+            case 1: riddle = R.raw.riddle1; break;
+            case 2: riddle = R.raw.riddle2; break;
+            default: riddle = R.raw.riddle0; break;
+        }
         try
         {
             BufferedInputStream stream;
-            stream = new BufferedInputStream(context.getResources().openRawResource(R.raw.riddle0));
+            stream = new BufferedInputStream(context.getResources().openRawResource(riddle));
             loadedRiddle.load(stream);
             stream.close();
         }
@@ -76,19 +102,22 @@ public class StateMachine {
         }
     }
 
-    public void openRiddle( int number)
+    public void openRiddle()
     {
-
+        Intent intent = new Intent(context, RiddleText.class);
+        context.startActivity(intent);
     }
 
-    public void openCheckSolution( int number)
+    public void openCheckSolution()
     {
-
+        Intent intent = new Intent(context, CheckSolution.class);
+        context.startActivity(intent);
     }
 
-    public void openSolution( int number)
+    public void openSolution()
     {
-
+        Intent intent = new Intent(context, Solution.class);
+        context.startActivity(intent);
     }
 
     private boolean checkAccess ()
@@ -106,9 +135,21 @@ public class StateMachine {
         editor.apply();
     }
 
+    private void saveStateInt(String key, int value)
+    {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
     private String loadStateString(String key)
     {
         return sharedPref.getString(key, "none");
+    }
+
+    private int loadStateInt(String key)
+    {
+        return sharedPref.getInt(key,-1);
     }
 
 }

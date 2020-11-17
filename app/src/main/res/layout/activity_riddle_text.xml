@@ -10,18 +10,17 @@
         android:id="@+id/riddleButtonSolution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="119dp"
-        android:layout_marginLeft="119dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="616dp"
-        android:layout_marginEnd="119dp"
-        android:layout_marginRight="119dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginRight="118dp"
         android:layout_marginBottom="67dp"
         android:text="Lösung eingeben"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/riddleTextViewHeadline"
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
         android:layout_marginLeft="63dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="63dp"
         android:layout_marginRight="63dp"
         android:layout_marginBottom="91dp"
@@ -46,8 +45,16 @@
         android:id="@+id/riddleTextViewQuestion"
         android:layout_width="293dp"
         android:layout_height="336dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:layout_marginBottom="68dp"
         android:text="Beispieltext, der so lange ist, dass er mehrere Zeilen einnimt. Die Lösung ist sehr schwer. Quasi unlösbar. Weil es einfach keine Frage gibt :D"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="212dp" />
+        app:layout_constraintBottom_toTopOf="@+id/riddleButtonSolution"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/riddleTextViewHeadline" />
 </androidx.constraintlayout.widget.ConstraintLayout>
