@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -25,6 +27,25 @@ public class StateMachine implements Serializable {
                 "appState", Context.MODE_PRIVATE);
         loadedRiddle = new Properties();
         context = extContext;
+        loadLastState();
+
+    }
+
+    static public String getRiddleString(String key)
+    {
+        if (loadedRiddle == null)
+        {
+            System.out.println("Riddle property is null");
+        }
+        String tmp = loadedRiddle.getProperty(key);
+        if (tmp != null) {
+            System.out.println(tmp);
+        }
+        else
+        {
+            System.out.println("NULL");
+        }
+        return tmp;
     }
 
     static public String readTest()
@@ -32,7 +53,7 @@ public class StateMachine implements Serializable {
         return "test2";//loadedRiddle.getProperty("test2");
     }
 
-    static private void loadLastState()
+    static private int getCurrentRiddleNo()
     {
         String result;
         int riddleNo;
@@ -48,25 +69,61 @@ public class StateMachine implements Serializable {
             {
                 riddleNo = Integer.parseInt(result);
             }
-           catch (NumberFormatException e)
-           {
-               riddleNo = 0;
-               e.printStackTrace();
-           }
+            catch (NumberFormatException e)
+            {
+                riddleNo = 0;
+                e.printStackTrace();
+            }
         }
-        if ( !riddleOpen(riddleNo) )
+        return  riddleNo;
+    }
+
+    static private void loadLastState()
+    {
+        int riddleNo = getCurrentRiddleNo();
+
+        if ( !riddleIsOpen(riddleNo) )
         {
             loadRiddle(riddleNo);
         }
     }
 
-    static private boolean riddleOpen( int riddleNo)
+    static private void loadNextRiddle()
+    {
+        int riddleNo = getCurrentRiddleNo();
+        if (riddleNo <= 23)
+        {
+            Date today = Calendar.getInstance().getTime();
+            
+
+            if (True)
+            {
+                loadRiddle((riddleNo+1));
+            }
+            else
+            {
+                openWait();
+            }
+
+        }
+        else
+        {
+            openDone();
+        }
+
+    }
+
+    static private boolean riddleIsOpen( int riddleNo)
     {
         //TODO Check if a riddle is open and if it is the same as the questioned
         String riddleCurrentStr;
         int riddleCurrentInt;
 
         riddleCurrentStr = loadedRiddle.getProperty("number");
+        if (riddleCurrentStr == null)
+        {
+            return false;
+        }
         try
         {
             riddleCurrentInt = Integer.getInteger(riddleCurrentStr);
@@ -91,9 +148,9 @@ public class StateMachine implements Serializable {
         int riddle;
         switch (number)
         {
-            case 1: riddle = R.raw.riddle1; break;
             case 2: riddle = R.raw.riddle2; break;
-            default: riddle = R.raw.riddle0; break;
+            case 3: riddle = R.raw.riddle3; break;
+            default: riddle = R.raw.riddle1; break;
         }
         try
         {
@@ -108,8 +165,19 @@ public class StateMachine implements Serializable {
         }
     }
 
+    static public void openWait()
+    {
+
+    }
+
+    static public void openDone()
+    {
+
+    }
+
     static public void openRiddle()
     {
+        //TODO Check date!!!
         Intent intent = new Intent(context, RiddleText.class);
         context.startActivity(intent);
 
@@ -123,22 +191,28 @@ public class StateMachine implements Serializable {
 
     static public boolean openSolution(String solution)
     {
-        if (!solution.equals("Blender"))
+        if (!accessGranted(solution))
         {
             return false;
         }
-
         Intent intent = new Intent(context, Solution.class);
         context.startActivity(intent);
         return true;
     }
 
-    static private boolean checkAccess ()
+    static private boolean accessGranted(String solution)
     {
-        //date
-        //letzes Raetsel geloest
-        //oder adminPassword
-        return false;
+        if (solution.equals("Blender"))
+        {
+            /*Admin key*/
+            return true;
+        } else if (!solution.equals(loadedRiddle.getProperty("solution")))
+        {
+            /*Wrong solution*/
+            return false;
+        }
+        /*Correct Solution*/
+        return true;
     }
 
     static private void saveStateString(String key, String value)

@@ -18,7 +18,7 @@ public class RiddleText extends AppCompatActivity {
         setContentView(R.layout.activity_riddle_text);
 
         riddleTextViewQuestion = (TextView) findViewById (R.id.riddleTextViewQuestion);
-        riddleTextViewQuestion.setText(StateMachine.readTest());
+        riddleTextViewQuestion.setText(StateMachine.getRiddleString("question"));
 
         riddleButtonSolution = (Button) findViewById( R.id.riddleButtonSolution);
         riddleButtonSolution.setOnClickListener(new View.OnClickListener() {
