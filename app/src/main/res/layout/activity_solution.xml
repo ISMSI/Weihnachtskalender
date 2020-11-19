@@ -15,11 +15,11 @@
         android:layout_marginTop="131dp"
         android:layout_marginEnd="63dp"
         android:layout_marginRight="63dp"
-        android:layout_marginBottom="91dp"
+        android:layout_marginBottom="72dp"
         android:text="Code"
         android:textAllCaps="false"
         android:textSize="72sp"
-        app:layout_constraintBottom_toTopOf="@+id/checkSolutionTextViewAksSolution"
+        app:layout_constraintBottom_toTopOf="@+id/solutionTextViewCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,9 +44,17 @@
         android:id="@+id/solutionTextViewCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="121dp"
+        android:layout_marginLeft="121dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="121dp"
+        android:layout_marginRight="121dp"
+        android:layout_marginBottom="135dp"
         android:text="000"
         android:textSize="100sp"
-        tools:layout_editor_absoluteX="121dp"
-        tools:layout_editor_absoluteY="299dp" />
+        app:layout_constraintBottom_toTopOf="@+id/solutionButtonNextRiddle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solutionTextViewHeadline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

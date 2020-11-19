@@ -36,7 +36,6 @@
         android:text="Gehe zurück zum Rätsel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,11 +78,10 @@
         android:layout_height="35dp"
         android:layout_marginStart="82dp"
         android:layout_marginLeft="82dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="83dp"
         android:layout_marginRight="83dp"
         android:layout_marginBottom="79dp"
-        android:text="Deine Lösung war leider nicht koorekt! Versuche es nochmal, Sweety!"
         app:layout_constraintBottom_toTopOf="@+id/checkSolutionButtonRiddle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,31 +4,53 @@
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-public class CheckSolution extends AppCompatActivity {
+ public class CheckSolution extends AppCompatActivity {
 
-    Button button;
+    TextView checkSolutionPlainTextEnter;
+    TextView checkSolutionTextViewWrong;
+
+    Button checkSolutionButtonCheckSolution;
+    Button checkSolutionButtonRiddle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_solution);
 
-        button = (Button) findViewById( R.id.checkSolutionButtonRiddle);
-        button.setOnClickListener(new View.OnClickListener() {
+        checkSolutionPlainTextEnter = (TextView) findViewById(R.id.checkSolutionPlainTextEnter);
+        checkSolutionTextViewWrong = (TextView) findViewById(R.id.checkSolutionTextViewWrong);
+
+        checkSolutionButtonCheckSolution = (Button) findViewById( R.id.checkSolutionButtonCheckSolution);
+        checkSolutionButtonCheckSolution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity2();
+                boolean solutionCorrect = StateMachine.openSolution( checkSolutionPlainTextEnter.getText().toString() );
+                if (!solutionCorrect)
+                {
+                    checkSolutionTextViewWrong.setTextColor(Color.RED);
+                    checkSolutionTextViewWrong.setText("Deine Lösung war leider nicht koorekt! Versuche es nochmal, Sweety!");
+                }
+                else
+                {
+                    checkSolutionTextViewWrong.setText("");
+                }
+            }
+        });
+
+        checkSolutionButtonRiddle = (Button) findViewById( R.id.checkSolutionButtonRiddle);
+        checkSolutionButtonRiddle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StateMachine.openRiddle();
             }
         });
     }
 
-    public void openActivity2()
-    {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 }
