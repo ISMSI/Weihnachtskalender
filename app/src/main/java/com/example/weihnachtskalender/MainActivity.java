@@ -26,16 +26,20 @@ public class MainActivity extends AppCompatActivity {
 
         StateMachine.loadPrefAndRiddle(this);
 
-        button = (Button) findViewById( R.id.mainActivityButtonLos);
-        mainTextPlain = (TextView) findViewById (R.id.mainPlainText);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                test();
-                StateMachine.openRiddle();
-            }
-        });
+            button = (Button) findViewById( R.id.mainActivityButtonLos);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    test();
+                    StateMachine.openRiddle();
+                }
+            });
+        if (!StateMachine.isFirstOpen())
+        {
+            StateMachine.openRiddle();
+        }
+
     }
 
     public void openActivity()
@@ -46,6 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void test()
     {
-        mainTextPlain.setText("Ich liebe dich, Sweety <3");
+
     }
 }

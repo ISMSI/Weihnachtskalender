@@ -9,11 +9,13 @@ import androidx.annotation.Nullable;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TimeZone;
 
 
 public class StateMachine implements Serializable {
@@ -55,26 +57,9 @@ public class StateMachine implements Serializable {
 
     static private int getCurrentRiddleNo()
     {
-        String result;
         int riddleNo;
-        result = loadStateString("number");
+        riddleNo = loadStateInt("number");
 
-        if (result.equals("none"))
-        {
-            riddleNo = 0;
-        }
-        else
-        {
-            try
-            {
-                riddleNo = Integer.parseInt(result);
-            }
-            catch (NumberFormatException e)
-            {
-                riddleNo = 0;
-                e.printStackTrace();
-            }
-        }
         return  riddleNo;
     }
 
@@ -88,17 +73,22 @@ public class StateMachine implements Serializable {
         }
     }
 
-    static private void loadNextRiddle()
+    static public void openRiddle()
     {
         int riddleNo = getCurrentRiddleNo();
         if (riddleNo <= 23)
         {
-            Date today = Calendar.getInstance().getTime();
-            
+            // Choose time zone in which you want to interpret your Date
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            System.out.println(day);
 
-            if (True)
+            if (day >= riddleNo)
             {
                 loadRiddle((riddleNo+1));
+                Intent intent = new Intent(context, RiddleText.class);
+                context.startActivity(intent);
+
             }
             else
             {
@@ -111,6 +101,18 @@ public class StateMachine implements Serializable {
             openDone();
         }
 
+    }
+
+    static public boolean isFirstOpen ()
+    {
+        if (getCurrentRiddleNo() <= 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     static private boolean riddleIsOpen( int riddleNo)
@@ -146,6 +148,8 @@ public class StateMachine implements Serializable {
     static private void loadRiddle( int number)
     {
         int riddle;
+
+        System.out.println("Riddle number is: " + number);
         switch (number)
         {
             case 2: riddle = R.raw.riddle2; break;
@@ -158,6 +162,7 @@ public class StateMachine implements Serializable {
             stream = new BufferedInputStream(context.getResources().openRawResource(riddle));
             loadedRiddle.load(stream);
             stream.close();
+            saveStateInt("number", Integer.parseInt(getRiddleString("number")));
         }
         catch(IOException iException)
         {
@@ -172,14 +177,6 @@ public class StateMachine implements Serializable {
 
     static public void openDone()
     {
-
-    }
-
-    static public void openRiddle()
-    {
-        //TODO Check date!!!
-        Intent intent = new Intent(context, RiddleText.class);
-        context.startActivity(intent);
 
     }
 
@@ -236,7 +233,7 @@ public class StateMachine implements Serializable {
 
     static private int loadStateInt(String key)
     {
-        return sharedPref.getInt(key,-1);
+        return sharedPref.getInt(key,0);
     }
 
 }

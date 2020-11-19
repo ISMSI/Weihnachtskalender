@@ -28,5 +28,7 @@ public class Solution extends AppCompatActivity {
                 StateMachine.openRiddle();
             }
         });
+
+        solutionTextViewCode.setText(StateMachine.getRiddleString("code"));
     }
 }
