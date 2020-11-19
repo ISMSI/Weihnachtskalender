@@ -76,6 +76,14 @@ public class StateMachine implements Serializable {
     static public void openRiddle()
     {
         int riddleNo = getCurrentRiddleNo();
+        loadRiddle((riddleNo));
+        Intent intent = new Intent(context, RiddleText.class);
+        context.startActivity(intent);
+    }
+
+    static public void openNextRiddle()
+    {
+        int riddleNo = getCurrentRiddleNo();
         if (riddleNo <= 23)
         {
             // Choose time zone in which you want to interpret your Date

@@ -48,7 +48,7 @@ import android.widget.TextView;
         checkSolutionButtonRiddle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StateMachine.openRiddle();
+                StateMachine.openNextRiddle();
             }
         });
     }
