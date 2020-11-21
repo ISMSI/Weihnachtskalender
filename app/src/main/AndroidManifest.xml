@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Weihnachtskalender">
-        <activity android:name=".RiddleText"></activity>
+        <activity android:name=".RiddleText" />
         <activity android:name=".Solution" />
         <activity android:name=".CheckSolution" />
         <activity android:name=".MainActivity">

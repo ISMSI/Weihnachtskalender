@@ -1,6 +1,10 @@
 package com.example.weihnachtskalender;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -242,6 +246,54 @@ public class StateMachine implements Serializable {
     static private int loadStateInt(String key)
     {
         return sharedPref.getInt(key,0);
+    }
+
+    static public void reset(Context currContext)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(currContext);
+        builder.setView(R.layout.dialog_choose_day);
+        builder.setMessage("Bist du dir sicher?");
+        builder.setTitle("Kalender zurücksetzen?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveStateInt("number", 0);
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("NEIN!!!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    static public void setDay(Context currContext)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(currContext);
+        builder.setView(R.layout.dialog_choose_day);
+        builder.setMessage("Wähle den gewünschten Tag aus.");
+        builder.setTitle("Tag auswählen?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("NEIN!!!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 }
