@@ -9,39 +9,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-public class Solution extends AppCompatActivity {
+public class Done extends AppCompatActivity {
 
-    TextView solutionTextViewHeadline;
-    TextView solutionTextViewCode;
-    Button solutionButtonNextRiddle;
-
-    Context context;
     Activity activity;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_solution);
+        setContentView(R.layout.activity_done);
 
-        context = this;
         activity = this;
-
-        solutionTextViewHeadline = (TextView) findViewById (R.id.solutionTextViewHeadline);
-        solutionTextViewCode = (TextView) findViewById (R.id.solutionTextViewCode);
-
-        solutionButtonNextRiddle = (Button) findViewById( R.id.solutionButtonNextRiddle);
-        solutionButtonNextRiddle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StateMachine.openNextRiddle();
-            }
-        });
-
-        solutionTextViewCode.setText(StateMachine.getRiddleString("code"));
+        context = this;
     }
 
     @Override
@@ -63,4 +43,5 @@ public class Solution extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

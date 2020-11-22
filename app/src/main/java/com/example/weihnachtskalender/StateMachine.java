@@ -168,6 +168,8 @@ public class StateMachine implements Serializable {
             case 2: riddle = R.raw.riddle2; break;
             case 3: riddle = R.raw.riddle3; break;
             case 20: riddle = R.raw.riddle20; break;
+            case 23: riddle = R.raw.riddle23; break;
+            case 24: riddle = R.raw.riddle24; break;
             default: riddle = R.raw.riddle1; break;
         }
         try
@@ -186,12 +188,14 @@ public class StateMachine implements Serializable {
 
     static public void openWait()
     {
-
+        Intent intent = new Intent(context, Wait.class);
+        context.startActivity(intent);
     }
 
     static public void openDone()
     {
-
+        Intent intent = new Intent(context, Done.class);
+        context.startActivity(intent);
     }
 
     static public void openCheckSolution()

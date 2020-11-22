@@ -26,6 +26,9 @@ public class RiddleText extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riddle_text);
 
+        context = this;
+        activity = this;
+
         riddleTextViewQuestion = (TextView) findViewById (R.id.riddleTextViewQuestion);
         riddleTextViewQuestion.setText(StateMachine.getRiddleString("question"));
 
@@ -37,8 +40,7 @@ public class RiddleText extends AppCompatActivity {
             }
         });
 
-        context = this;
-        activity = this;
+
     }
 
     @Override
