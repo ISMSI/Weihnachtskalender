@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +19,7 @@ public class RiddleText extends AppCompatActivity {
     TextView riddleTextViewQuestion;
     Button riddleButtonSolution;
     Context context;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class RiddleText extends AppCompatActivity {
         });
 
         context = this;
+        activity = this;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class RiddleText extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.itemReset: StateMachine.reset(context); break;
-            case R.id.itemChooseDay: StateMachine.setDay(context); break;
+            case R.id.itemChooseDay: StateMachine.setDay(activity); break;
         }
         return super.onOptionsItemSelected(item);
     }

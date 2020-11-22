@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -166,6 +167,7 @@ public class StateMachine implements Serializable {
         {
             case 2: riddle = R.raw.riddle2; break;
             case 3: riddle = R.raw.riddle3; break;
+            case 20: riddle = R.raw.riddle20; break;
             default: riddle = R.raw.riddle1; break;
         }
         try
@@ -231,7 +233,7 @@ public class StateMachine implements Serializable {
         editor.apply();
     }
 
-    static private void saveStateInt(String key, int value)
+    static public void saveStateInt(String key, int value)
     {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
@@ -251,7 +253,6 @@ public class StateMachine implements Serializable {
     static public void reset(Context currContext)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(currContext);
-        builder.setView(R.layout.dialog_choose_day);
         builder.setMessage("Bist du dir sicher?");
         builder.setTitle("Kalender zurücksetzen?");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -262,7 +263,7 @@ public class StateMachine implements Serializable {
                 context.startActivity(intent);
             }
         });
-        builder.setNegativeButton("NEIN!!!", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("NEIN", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -273,25 +274,17 @@ public class StateMachine implements Serializable {
 
     }
 
-    static public void setDay(Context currContext)
+    static public void setDay(Activity currActivity)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(currContext);
+
+        /*DialogChooseDay.Builder builder = new DialogChooseDay.Builder(currContext);
         builder.setView(R.layout.dialog_choose_day);
         builder.setMessage("Wähle den gewünschten Tag aus.");
         builder.setTitle("Tag auswählen?");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        DialogChooseDay dialog = builder.create();
+        dialog.show();*/
 
-            }
-        });
-        builder.setNegativeButton("NEIN!!!", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        AlertDialog dialog = builder.create();
+        DialogChooseDay dialog = new DialogChooseDay(currActivity);
         dialog.show();
 
     }
