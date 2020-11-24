@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,16 +43,27 @@ import android.widget.TextView;
         checkSolutionButtonCheckSolution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean solutionCorrect = StateMachine.openSolution( checkSolutionPlainTextEnter.getText().toString() );
-                if (!solutionCorrect)
+                openSolution();
+            }
+        });
+
+        checkSolutionPlainTextEnter.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    checkSolutionTextViewWrong.setTextColor(Color.RED);
-                    checkSolutionTextViewWrong.setText("Deine Lösung war leider nicht koorekt! Versuche es nochmal, Sweety!");
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            openSolution();
+                            return true;
+                        default:
+                            break;
+                    }
                 }
-                else
-                {
-                    checkSolutionTextViewWrong.setText("");
-                }
+                return false;
             }
         });
 
@@ -83,5 +95,21 @@ import android.widget.TextView;
                  break;
          }
          return super.onOptionsItemSelected(item);
+     }
+
+     private void openSolution()
+     {
+
+         boolean solutionCorrect = StateMachine.openSolution( checkSolutionPlainTextEnter.getText().toString() );
+         if (!solutionCorrect)
+         {
+             checkSolutionTextViewWrong.setTextColor(Color.RED);
+             checkSolutionTextViewWrong.setText("Deine Lösung war leider nicht koorekt! Versuche es nochmal, Sweety!");
+         }
+         else
+         {
+             checkSolutionTextViewWrong.setText("");
+         }
+
      }
 }

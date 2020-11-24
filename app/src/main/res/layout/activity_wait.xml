@@ -12,10 +12,12 @@
         android:layout_height="257dp"
         android:layout_marginStart="63dp"
         android:layout_marginTop="184dp"
+        android:layout_marginEnd="63dp"
         android:layout_marginBottom="290dp"
         android:text="Hey Sweety,\n\n Du hast das heutige Rätsel schon gelöst. Leider musst du bis morgen warten, bis du das nächste Rätsel lösen darfst.\n\n Ich liebe dich!"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,9 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
         android:layout_marginTop="97dp"
+        android:layout_marginEnd="63dp"
         android:text="Warten ist doof!"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
