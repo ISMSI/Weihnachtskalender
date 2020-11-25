@@ -78,12 +78,25 @@ public class StateMachine implements Serializable {
         }
     }
 
+    static private void putRiddleOnScreen(int riddleNo)
+    {
+        loadRiddle((riddleNo));
+        if (getRiddleString("riddle_type").equals("image"))
+        {
+            Intent intent = new Intent(context, RiddleImage.class);
+            context.startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(context, RiddleText.class);
+            context.startActivity(intent);
+        }
+    }
+
     static public void openRiddle()
     {
         int riddleNo = getCurrentRiddleNo();
-        loadRiddle((riddleNo));
-        Intent intent = new Intent(context, RiddleText.class);
-        context.startActivity(intent);
+        putRiddleOnScreen(riddleNo);
     }
 
     static public void openNextRiddle()
@@ -98,10 +111,7 @@ public class StateMachine implements Serializable {
 
             if (day >= riddleNo)
             {
-                loadRiddle((riddleNo+1));
-                Intent intent = new Intent(context, RiddleText.class);
-                context.startActivity(intent);
-
+                putRiddleOnScreen((riddleNo+1));
             }
             else
             {
@@ -163,15 +173,17 @@ public class StateMachine implements Serializable {
         int riddle;
 
         System.out.println("Riddle number is: " + number);
-        switch (number)
+        if(number < 1 | number > 24)
         {
-            case 2: riddle = R.raw.riddle2; break;
-            case 3: riddle = R.raw.riddle3; break;
-            case 20: riddle = R.raw.riddle20; break;
-            case 23: riddle = R.raw.riddle23; break;
-            case 24: riddle = R.raw.riddle24; break;
-            default: riddle = R.raw.riddle1; break;
+            number = 1;
         }
+        riddle = context.getResources().getIdentifier("raw/"+"riddle"+number, null, context.getPackageName());
+
+        if(riddle <= 0)
+        {
+            riddle = R.raw.riddle1;
+        }
+
         try
         {
             BufferedInputStream stream;
