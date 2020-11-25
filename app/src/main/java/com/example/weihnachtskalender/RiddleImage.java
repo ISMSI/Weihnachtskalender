@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 public class RiddleImage extends AppCompatActivity {
 
+    TextView riddleImageQuestion;
     Button riddleImageButtonSolution;
     ImageView riddleImageView;
     Context context;
@@ -29,6 +30,9 @@ public class RiddleImage extends AppCompatActivity {
 
         context = this;
         activity = this;
+
+        riddleImageQuestion = (TextView) findViewById (R.id.riddleImageQuestion);
+        riddleImageQuestion.setText(StateMachine.getRiddleString("question"));
 
         riddleImageView = (ImageView) findViewById( R.id.riddleImageView);
         int id = context.getResources().getIdentifier(
