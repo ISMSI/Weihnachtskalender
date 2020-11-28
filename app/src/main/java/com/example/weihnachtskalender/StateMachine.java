@@ -109,7 +109,7 @@ public class StateMachine implements Serializable {
             int day = cal.get(Calendar.DAY_OF_MONTH);
             System.out.println(day);
 
-            if (day >= riddleNo)
+            if (day > riddleNo)
             {
                 putRiddleOnScreen((riddleNo+1));
             }
@@ -227,19 +227,30 @@ public class StateMachine implements Serializable {
         return true;
     }
 
-    static private boolean accessGranted(String solution)
+    static private boolean accessGranted(String solution_suggest)
     {
-        if (solution.equals("Blender"))
+        String solution_suggest_clean =solution_suggest.trim();
+
+        String solution_options = loadedRiddle.getProperty("solution");
+        String [] solution_array = solution_options.split(";");
+
+        if (solution_suggest_clean.equals("Blender"))
         {
             /*Admin key*/
             return true;
-        } else if (!solution.equals(loadedRiddle.getProperty("solution")))
+        } else
         {
-            /*Wrong solution*/
-            return false;
+            for (int i = 0; i < solution_array.length; i++)
+            {
+                String solution_current = solution_array[i].trim();
+                if (solution_current.equals(solution_suggest_clean))
+                {
+                    return true;
+                }
+            }
         }
         /*Correct Solution*/
-        return true;
+        return false;
     }
 
     static private void saveStateString(String key, String value)

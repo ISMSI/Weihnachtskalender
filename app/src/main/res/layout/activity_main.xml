@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_width="303dp"
+        android:layout_height="176dp"
+        android:text="Endlich ist es so weit. Weihnachten naht. \nUm die Zeit zu überbrücken habe ich für dich diesen Advenzkalender gemacht. Ich wünsche dir viel Spaß! \n\n Ich liebe dich"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
