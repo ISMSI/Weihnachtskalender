@@ -31,7 +31,7 @@ public class Wait extends AppCompatActivity {
         waitButtonAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StateMachine.openNextRiddle();
+                StateMachine.openRiddle();
             }
         });
 

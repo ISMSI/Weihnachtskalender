@@ -42,7 +42,7 @@ public class DialogChooseDay extends Dialog
 
                         if(dialogChooseDayPassword.getText().toString().equals("Blender")) {
                             StateMachine.saveStateInt("number", number);
-                            StateMachine.openRiddle();
+                            StateMachine.openRiddleAdmin();
                             dismiss();
                         }
                         else

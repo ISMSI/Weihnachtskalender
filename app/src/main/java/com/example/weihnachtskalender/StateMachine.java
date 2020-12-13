@@ -80,7 +80,6 @@ public class StateMachine implements Serializable {
 
     static private void putRiddleOnScreen(int riddleNo)
     {
-        loadRiddle((riddleNo));
         if (getRiddleString("riddle_type").equals("image"))
         {
             Intent intent = new Intent(context, RiddleImage.class);
@@ -93,25 +92,20 @@ public class StateMachine implements Serializable {
         }
     }
 
-    static public void openRiddle()
+    static private void openRiddleIfValid( int riddleNo, boolean admin)
     {
-        int riddleNo = getCurrentRiddleNo();
-        putRiddleOnScreen(riddleNo);
-    }
-
-    static public void openNextRiddle()
-    {
-        int riddleNo = getCurrentRiddleNo();
         if (riddleNo <= 23)
         {
+            loadRiddle((riddleNo));
+
             // Choose time zone in which you want to interpret your Date
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
             int day = cal.get(Calendar.DAY_OF_MONTH);
             System.out.println(day);
 
-            if (day > riddleNo)
+            if (day >= riddleNo || admin)
             {
-                putRiddleOnScreen((riddleNo+1));
+                putRiddleOnScreen((riddleNo));
             }
             else
             {
@@ -123,7 +117,24 @@ public class StateMachine implements Serializable {
         {
             openDone();
         }
+    }
 
+    static public void openRiddle()
+    {
+        int riddleNo = getCurrentRiddleNo();
+        openRiddleIfValid(riddleNo, false);
+    }
+
+    static public void openRiddleAdmin()
+    {
+        int riddleNo = getCurrentRiddleNo();
+        openRiddleIfValid(riddleNo, true);
+    }
+
+    static public void openNextRiddle()
+    {
+        int riddleNo = getCurrentRiddleNo();
+        openRiddleIfValid(riddleNo+1, false);
     }
 
     static public boolean isFirstOpen ()
