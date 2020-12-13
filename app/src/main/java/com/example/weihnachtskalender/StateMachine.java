@@ -131,10 +131,9 @@ public class StateMachine implements Serializable {
         openRiddleIfValid(riddleNo, true);
     }
 
-    static public void openNextRiddle()
+    static public void openNextRiddle( int currentRiddleNo)
     {
-        int riddleNo = getCurrentRiddleNo();
-        openRiddleIfValid(riddleNo+1, false);
+        openRiddleIfValid(currentRiddleNo+1, false);
     }
 
     static public boolean isFirstOpen ()

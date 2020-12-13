@@ -21,6 +21,7 @@ public class Solution extends AppCompatActivity {
 
     Context context;
     Activity activity;
+    int currentRiddle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,12 @@ public class Solution extends AppCompatActivity {
         solutionButtonNextRiddle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StateMachine.openNextRiddle();
+                StateMachine.openNextRiddle(currentRiddle);
             }
         });
 
         solutionTextViewCode.setText(StateMachine.getRiddleString("code"));
+        currentRiddle = Integer.parseInt( StateMachine.getRiddleString("number") );
     }
 
     @Override
